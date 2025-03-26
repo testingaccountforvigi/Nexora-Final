@@ -51,6 +51,24 @@ const features = [
     }
   ];
 
+const whatsappGroups = [
+  {
+    name: 'Adventure Seekers',
+    description: 'Connect with adrenaline junkies and extreme sports enthusiasts',
+    link: 'https://chat.whatsapp.com/Jvg9RCek7dW2C7IFdpZ26k'
+  },
+  {
+    name: 'Culture Explorers',
+    description: 'Discover local traditions, arts, and authentic experiences',
+    link: 'https://chat.whatsapp.com/F5q0jdolULG4C5tcFt3JBK'
+  },
+  {
+    name: 'Budget Travelers',
+    description: 'Share tips and tricks for smart, affordable travel',
+    link: 'https://chat.whatsapp.com/ISwwLKlyPWKC85C9o89Wpy'
+  }
+];
+
 const AnimatedItem = ({ content, duration, tailwindClass  }) => {
     const variants = {
       hidden: { opacity: 0, y: 50 },
@@ -211,26 +229,28 @@ function LandingPage() {
           </p>
           
           <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {['Adventure Seekers', 'Culture Explorers', 'Budget Travelers'].map((group, index) => (
-              <div key={index} className="p-6 bg-white rounded-xl shadow-sm cursor-pointer">
-                <h3 className="text-xl font-semibold mb-4">{group}</h3>
+            {whatsappGroups.map((group, index) => (
+              <div key={index} className="p-6 bg-white rounded-xl shadow-sm">
+                <h3 className="text-xl font-semibold mb-4">{group.name}</h3>
                 <p className="text-gray-600 mb-4">
-                  {group === 'Adventure Seekers' && 'Connect with adrenaline junkies and extreme sports enthusiasts'}
-                  {group === 'Culture Explorers' && 'Discover local traditions, arts, and authentic experiences'}
-                  {group === 'Budget Travelers' && 'Share tips and tricks for smart, affordable travel'}
+                  {group.description}
                 </p>
-                <button
-                  onClick={() => handleJoinGroup(group)}
-                  className="text-blue-600 hover:text-blue-700 font-medium"
+                <a
+                  href={group.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center"
+                  onClick={() => toast.success(`Joining ${group.name} group!`)}
                 >
-                  Join Group →
-                </button>
+                  Join Group <ArrowRight className="w-4 h-4 ml-1" />
+                </a>
               </div>
             ))}
           </div>
 
           <button 
-            onClick={() => {toast.success('WhatsApp invite sent!');
+            onClick={() => {
+              toast.success('WhatsApp invite sent!');
               window.open('https://chat.whatsapp.com/ERzDvgVPd6kFcewob14Sm6', '_blank');
             }}
             className="bg-green-500 text-white py-3 px-8 rounded-lg font-semibold hover:bg-green-600 transition-colors inline-flex items-center space-x-2"
